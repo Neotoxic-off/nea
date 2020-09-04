@@ -1,0 +1,21 @@
+{
+    "config" : {
+        "type" : {
+            "feat"   : "⭐️",
+            "fix"    : "🔧",
+            "doc"    : "📃",
+            "style"  : "📷",
+            "perf"   : "⌛️",
+            "test"   : "📝",
+            "core"   : "📍",
+            "lib"    : "📚",
+            "revert" : "📦",
+            "update" : "🔍"
+        },
+        "commit" : {
+            "default_message" : "New Update",
+            "default_type"    : "update"
+        },
+        "break" : "|"
+    }
+}
