@@ -40,6 +40,11 @@ optional arguments:
 }
 ```
 
+- type
+- default_message
+- default_type
+- break
+
 ## Examples:
 
 ```
