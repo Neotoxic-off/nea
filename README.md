@@ -1,5 +1,5 @@
 # Nea
-*👉 Commit for me*
+🦑 *Commit for me* 🦑
 
 ## REQUIREMENTS:
 
