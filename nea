@@ -40,7 +40,8 @@ def errors(error, type = None, return_value = None):
         "6" : "'break' not found",
         "7" : "'type' not found",
         "8" : "Commit type: '%s' not found" % type,
-        "9" : "Error[%s]: Download failed, check your internet connection" % return_value
+        "9" : "Error[%s]: Download failed, check your internet connection" % return_value,
+        "10" : "No changes added to commit, use 'git add'"
     }
     return (data["%s" % error])
 
@@ -125,6 +126,7 @@ def display(commit, sucess = False):
             print("%s " % commit[i])
         else:
             print("%s " % commit[i], end = '')
+    return (0)
 
 def setup():
     if os.path.exists("%s/%s" % (os.environ["HOME"], settings.SRC)) == False:
@@ -160,10 +162,12 @@ def commiter():
 
     try:
         process = subprocess.run(commit, stdout = subprocess.PIPE)
-        if (process.returncode == 0):
-            display(commit, True)
-        else:
-            display(commit, False)
+        print(process.stdout)
+        if process.returncode == 0:
+            return (display(commit, True))
+        elif process.returncode == 1:
+            print(errors("10"))
+        return (display(commit, False))
     except:
         display(commit, False)
 
