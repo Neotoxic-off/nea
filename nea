@@ -41,7 +41,8 @@ def errors(error, type = None, return_value = None):
         "7" : "'type' not found",
         "8" : "Commit type: '%s' not found" % type,
         "9" : "Error[%s]: Download failed, check your internet connection" % return_value,
-        "10" : "No changes added to commit, use 'git add'"
+        "10" : "No changes added to commit, use 'git add'",
+        "11" : "Use 'git push' to publish your local commits"
     }
     return (data["%s" % error])
 
@@ -90,7 +91,7 @@ def clone():
     
     try:
         print("Downloading default configuration")
-        process = subprocess.run(["curl", "%s/%s" % (settings.REPO, settings.SRC),
+        process = subprocess.Popen(["curl", "%s/%s" % (settings.REPO, settings.SRC),
         "--output", "%s/%s" % (os.environ["HOME"], settings.SRC), "--silent"], stdout = subprocess.PIPE)
         if (process.returncode == 0):
             print("Configuration file downloaded")
@@ -157,12 +158,16 @@ def reset():
         print("Setup not present")
         exit(-1)
 
+def read_output(process):
+    if process.stdout.includes("Your branch is ahead of"):
+        print(errors("11"))
+
 def commiter():
     commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI, settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
     try:
-        process = subprocess.run(commit, stdout = subprocess.PIPE)
-        print(process.stdout)
+        process = subprocess.Popen(commit, stdout = subprocess.PIPE)
+        read_output(process)
         if process.returncode == 0:
             return (display(commit, True))
         elif process.returncode == 1:
