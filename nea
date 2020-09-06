@@ -91,7 +91,7 @@ def clone():
     
     try:
         print("Downloading default configuration")
-        process = subprocess.Popen(["curl", "%s/%s" % (settings.REPO, settings.SRC),
+        process = subprocess.run(["curl", "%s/%s" % (settings.REPO, settings.SRC),
         "--output", "%s/%s" % (os.environ["HOME"], settings.SRC), "--silent"], stdout = subprocess.PIPE)
         if (process.returncode == 0):
             print("Configuration file downloaded")
@@ -159,19 +159,23 @@ def reset():
         exit(-1)
 
 def read_output(process):
-    if process.stdout.includes("Your branch is ahead of"):
+    print("\n")
+    if "no changes added to commit" in process.stdout:
+        print("\nICI\n")
+        print(errors("10"))
+    else:
         print(errors("11"))
 
 def commiter():
     commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI, settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
     try:
-        process = subprocess.Popen(commit, stdout = subprocess.PIPE)
-        read_output(process)
+        process = subprocess.run(commit, stdout = subprocess.PIPE)
+        print(process.stdout)
         if process.returncode == 0:
             return (display(commit, True))
         elif process.returncode == 1:
-            print(errors("10"))
+            read_output(process)
         return (display(commit, False))
     except:
         display(commit, False)
