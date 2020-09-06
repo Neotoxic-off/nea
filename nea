@@ -160,15 +160,15 @@ def reset():
 def commiter():
     commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI, settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
-    #try:
-    process = subprocess.run(commit, stdout = subprocess.PIPE)
-    if process.returncode == 0:
-        return (display(commit, True))
-    elif process.returncode == 1:
-        print(process.stdout.decode("utf-8") )
-        return (display(commit, False))
-    #except:
-    #    display(commit, False)
+    try:
+        process = subprocess.run(commit, stdout = subprocess.PIPE)
+        if process.returncode == 0:
+            return (display(commit, True))
+        elif process.returncode == 1:
+            print(process.stdout.decode("utf-8") )
+            return (display(commit, False))
+    except:
+        display(commit, False)
 
 def main():
     arguments()
