@@ -7,6 +7,7 @@ import argparse
 import subprocess
 
 class settings:
+    REPO    = "https://raw.githubusercontent.com/Neotoxic-off/nea/master"
     SRC     = ".nearc.json"
     TYPE    = None
     MESSAGE = None
@@ -28,7 +29,7 @@ def color(c, f):
         return ("\033[%s;%sm" % (f, data.get("%s" % c)))
     return (None)
 
-def errors(error, type = None):
+def errors(error, type = None, return_value = None):
     data = {
         "0" : "'%s' file not found" % settings.SRC,
         "1" : "Something wrong with setup",
@@ -39,6 +40,7 @@ def errors(error, type = None):
         "6" : "'break' not found",
         "7" : "'type' not found",
         "8" : "Commit type: '%s' not found" % type,
+        "9" : "Error[%s]: Download failed, check your internet connection" % return_value
     }
     return (data["%s" % error])
 
@@ -83,6 +85,21 @@ def plugin():
         print(errors("0"))
         return (-1)
 
+def clone():
+    
+    try:
+        print("Downloading default configuration")
+        process = subprocess.run(["curl", "%s/%s" % (settings.REPO, settings.SRC),
+        "--output", "%s/%s" % (os.environ["HOME"], settings.SRC), "--silent"], stdout = subprocess.PIPE)
+        if (process.returncode == 0):
+            print("Configuration file downloaded")
+        else:
+            print(errors("9", None, process.returncode))
+            exit(-1)
+    except(IOError):
+        print(errors("9"))
+        exit(-1)
+
 def arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--setup",   action = "store_true",  help = "Setup the configuration", default = False)
@@ -113,14 +130,14 @@ def setup():
     if os.path.exists("%s/%s" % (os.environ["HOME"], settings.SRC)) == False:
         print("Starting setup...")
         try:
-            shutil.copyfile(settings.SRC, "%s/%s" % (os.environ["HOME"], settings.SRC))
+            clone()
             print("Setup done")
             exit(0)
         except(IOError):
             print(errors("1"))
             exit(-1)
     else:
-        print("Setup already done")
+        print("Setup already present")
         exit(-1)
 
 def reset():
@@ -128,18 +145,19 @@ def reset():
         print("Starting reset...")
         try:
             os.remove("%s/%s" % (os.environ["HOME"], settings.SRC))
-            shutil.copyfile(settings.SRC, "%s/%s" % (os.environ["HOME"], settings.SRC))
+            clone()
             print("Reset done")
             exit(0)
         except(IOError):
-            print(errors("1"))
+            print(errors("2"))
             exit(-1)
     else:
         print("Setup not present")
         exit(-1)
 
 def commiter():
-    commit = ["git", "commit", "-m", "%s %s %s %s" % (settings.EMOJI, settings.TYPE, settings.BREAK, settings.MESSAGE)]
+    commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI,
+    settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
     try:
         subprocess.run(commit)
