@@ -160,8 +160,11 @@ def commiter():
     settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
     try:
-        subprocess.run(commit)
-        display(commit, True)
+        process = subprocess.run(commit, stdout = subprocess.PIPE)
+        if (process.returncode == 0):
+            display(commit, True)
+        else:
+            display(commit, False)
     except:
         display(commit, False)
 
