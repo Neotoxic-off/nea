@@ -156,8 +156,7 @@ def reset():
         exit(-1)
 
 def commiter():
-    commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI,
-    settings.TYPE, settings.BREAK, settings.MESSAGE)]
+    commit = ["git", "commit", "-m","%s %s %s %s" % (settings.EMOJI, settings.TYPE, settings.BREAK, settings.MESSAGE)]
 
     try:
         process = subprocess.run(commit, stdout = subprocess.PIPE)
