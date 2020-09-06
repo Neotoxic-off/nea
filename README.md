@@ -1,6 +1,10 @@
 # Nea
 *👉 Commit for me*
 
+## REQUIREMENTS:
+
+- CURL
+
 ## Usage:
 ```
 usage: nea [-h] [-s] [-r] [-m MESSAGE] [-t TYPE]
