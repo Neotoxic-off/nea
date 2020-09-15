@@ -87,7 +87,6 @@ def plugin():
         return (-1)
 
 def clone():
-    
     try:
         print("Downloading default configuration")
         process = subprocess.run(["curl", "%s/%s" % (settings.REPO, settings.SRC),

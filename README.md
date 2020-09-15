@@ -5,6 +5,10 @@
 
 - CURL
 
+## Install:
+
+- ```sudo python3 setup.py```
+
 ## Usage:
 ```
 usage: nea [-h] [-s] [-r] [-m MESSAGE] [-t TYPE]
@@ -56,4 +60,11 @@ nea -t feat -m "New feature"     :    ⭐️ feat | New feature
 nea -t fix -m "New fix"          :    🔧 fix | New fix 
 nea -t test                      :    📝 test | New Update
 nea                              :    🔍 update | New Update
+```
+### OR 
+```
+git nea -t feat -m "New feature" :    ⭐️ feat | New feature
+git nea -t fix -m "New fix"      :    🔧 fix | New fix 
+git nea -t test                  :    📝 test | New Update
+git nea                          :    🔍 update | New Update
 ```
