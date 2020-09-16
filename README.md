@@ -37,11 +37,12 @@ optional arguments:
             "core"   : "📍",
             "lib"    : "📚",
             "revert" : "📦",
-            "update" : "🔍"
+            "update" : "🔍",
+            "clean"  : "🧹"
         },
         "commit" : {
-            "default_message" : "New Update",
-            "default_type"    : "update"
+            "default_message" : "Clean code",
+            "default_type"    : "clean"
         },
         "break" : "|"
     }
