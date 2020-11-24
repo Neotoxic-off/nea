@@ -13,7 +13,7 @@ def clean():
 
 def git():
     try:
-        subprocess.run(["git", "config", "--global", "alias.nea", "'! %s%s'" % (settings.path, settings.script)])
+        subprocess.run(["git", "config", "--global", "alias.nea", "! %s%s" % (settings.path, settings.script)])
         print("Git configurated: 'git nea ...'")
     except:
         print("Git configuration failed")
