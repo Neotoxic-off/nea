@@ -1,9 +1,9 @@
 {
     "config" : {
         "type" : {
-            "feat" : "⭐️",
-            "fix" : "🔧",
-            "bug" : "🐜",
+            "feat"   : "⭐️",
+            "fix"    : "🔧",
+            "bug"    : "🐜",
             "deploy" : "🚀",
             "doc"    : "📃",
             "style"  : "📷",
@@ -14,7 +14,8 @@
             "lib"    : "📚",
             "revert" : "♻️",
             "update" : "🔺",
-            "clean"  : "🧹"
+            "clean"  : "🧹",
+            "rework" : "🔸"
         },
         "commit" : {
             "default_message" : "Clean code",
